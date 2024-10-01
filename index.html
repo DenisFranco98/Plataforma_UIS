@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="../ejemplo_base/logo_uis.png" type="image/png"> <!-- Ajusta la ruta y tipo según tu imagen -->
+    <title>Iniciar Sesión</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Open+Sans:wght@400;700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background-image: url('http://e3t.uis.edu.co/eisi/images/Grupos/G7/contenidos/imagenes/20191030130119-inicio.png');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-position: center;
+            margin: 0;
+            padding: 0;
+            font-family: 'Montserrat', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            background-color: rgba(255, 255, 255, 0.9);
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            transition: box-shadow 0.3s ease;
+        }
+        .container:hover {
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+        .header-image {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .header-image img {
+            max-width: 100%;
+            height: auto;
+            width: 350px;
+        }
+        h1 {
+            font-family: 'Roboto', sans-serif;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: #333;
+        }
+        label {
+            font-family: 'Roboto', sans-serif;
+            font-weight: 400;
+            display: block;
+            margin-bottom: 5px;
+            color: #555;
+            text-align: left;
+        }
+        input[type="text"],
+        input[type="password"] {
+            width: calc(100% - 20px);
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            font-family: 'Roboto', sans-serif;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+        input[type="text"]:focus,
+        input[type="password"]:focus {
+            border-color: #007bff;
+            box-shadow: 0 0 8px rgba(0, 123, 255, 0.2);
+            outline: none;
+        }
+        button {
+            width: 50%;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            background-color: #1ba71b;
+            color: #fff;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+        .error-message{
+            margin-bottom: 10px;
+            color: red;
+        }
+        .checkbox-group{
+            font-size: 14px;
+            text-align: justify;
+            margin-bottom: 20px;
+        }
+        a{
+            text-decoration: none;
+        }
+        button:hover {
+            background-color: #169e2d;
+            transform: translateY(-2px);
+        }
+        button:active {
+            transform: translateY(0);
+        }
+        .links {
+            margin-top: 15px;
+            font-size: 14px;
+        }
+        .links a {
+            text-decoration: none;
+            color: #1ba71b; /* Verde más vivo */
+            margin-right: 10px;
+            transition: color 0.3s;
+        }
+        .parrafo{
+            font-size: 14px;
+            text-align: justify;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header-image">
+            <img src="https://uis.edu.co/wp-content/uploads/2023/03/Logo-UIS-75.png" alt="Imagen de encabezado">
+        </div>
+        <h1>Iniciar Sesión</h1>
+        <form action="login.php" method="POST">
+            <label for="usuario">Usuario:</label>
+            <input type="text" name="usuario" required>
+            <label for="contraseña">Contraseña:</label>
+            <input type="password" name="contraseña" required>
+            <div class="error-message"></div>
+            <div class="checkbox-group">
+                <label class="terminos">
+                    <input type="checkbox" id="terms" name="terms" required checked>
+                    Acepto las condiciones de tratamiento de datos conforme a la <a href="https://www.funcionpublica.gov.co/eva/gestornormativo/norma.php?i=49981" class="leyes">ley 1581 de 2012</a>
+                </label>
+            </div>
+            <button type="submit">Iniciar Sesión</button>
+            <div class="links">
+                <p>No tienes cuenta? <a href="registro.html">Regístrate</a></p>
+                <p>Olvidaste tu contraseña? <a href="recuperar.html">Recupérala</a></p>
+            </div>
+            <div class="parrafo">
+                <p>La información suministrada será tratada conforme a la ley 1581 del 2012, que regula la protección de datos personales en Colombia.</p>
+            </div>
+        </form>
+    </div>
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const error = urlParams.get('error');
+        if (error === "1") {
+            document.querySelector('.error-message').innerText = "Usuario y contraseña incorrectos";
+        }
+    </script>
+</body>
+</html>
+

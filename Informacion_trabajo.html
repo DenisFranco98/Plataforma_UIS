@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="icon" href="../ejemplo_base/logo_uis.png" type="image/png"> <!-- Ajusta la ruta y tipo según tu imagen -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Descripción del Proyecto</title>
+    <style>
+        body {
+            background-image: url('http://e3t.uis.edu.co/eisi/images/Grupos/G7/contenidos/imagenes/20191030130119-inicio.png');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-position: center;
+            margin: 0;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 18px;            
+            background-color: #f1f1f5b6;
+        }
+        .sidebar {
+            width: 200px;
+            background-color: #333;
+            padding: 15px;
+            color: white;
+            height: 100vh;
+            position: fixed;
+            top: 0;
+            left: 0;
+        }
+        .sidebar a {
+            display: block;
+            color: white;
+            text-decoration: none;
+            margin: 20px 0;
+            padding: 10px;
+            text-align: center;
+            background-color: #444;
+            border-radius: 15px;
+        }
+        .sidebar a:hover {
+            background-color: #555;
+        }
+        .content {
+            margin-left: 230px;
+            padding: 20px;
+            transition: margin-left 0.3s, width 0.3s;
+        }
+        nav {
+            background-color: #333;
+            color: white;
+            margin-top: 15px;
+            margin-left: 20px;
+            margin-right: 20px;
+            border-radius: 10px;
+            font-size: 20px;
+            padding: 10px;
+            margin-bottom: 20px;
+            text-align: center;
+            box-shadow: 0 10px 5px rgba(0, 0, 0, 0.1);
+        }
+        .container-form {
+            background-color: rgba(241, 241, 241, 0.9);
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+        label {
+            background-color: rgba(51, 51, 51, 0.8);
+            color: #fff;
+            margin: 0;
+            padding: 8px;
+            font-weight: bold;
+            font-size: 18px;
+            border-radius: 4px;
+            box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+        textarea {
+            width: 100%;
+            height: 200px;
+            padding: 10px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+            font-family: 'Montserrat', sans-serif;
+            outline: none;
+            font-size: 16px;
+            resize: none;
+            margin: 10px 0; 
+        }
+        input[type="submit"] {
+            margin-top: 20px; 
+        }
+        .alert {
+            display: none;
+            position: fixed;
+            bottom: 0; /* Pegado al borde inferior */
+            left: 0;
+            right: 0; /* Extiende el mensaje a lo largo de la página */
+            background: #333; /* Mismo color que el sidebar */
+            color: white;
+            padding: 15px 30px; /* Padding aumentado para mayor tamaño */
+            border-radius: 5px; /* Bordes redondeados */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra suave */
+            z-index: 1000;
+            opacity: 0;
+            transition: opacity 1.5s ease, transform 1.5s ease; /* Transición suave */
+            font-size: 18px; /* Tamaño de fuente mayor */
+            font-weight: 600; /* Fuente en negrita */
+            text-align: center; /* Alineación de texto centrada */
+            margin: 0 auto; /* Centra horizontalmente el mensaje */
+            width: 20%; /* Ancho del 90% de la ventana */
+            box-sizing: border-box; /* Asegura que el padding no afecte el ancho total */
+        }
+        .alert.show {
+            display: block;
+            opacity: 1;
+            transform: translateY(0); /* Muestra el mensaje en su lugar */
+        }
+
+
+        .btn {
+            margin: auto;
+            margin-bottom: 8px;
+            height: 40px;
+            width: 110px;
+            padding: 8px 10px;
+            border: none;
+            border-radius: 5px;
+            background-color: #1ba71b;
+            color: #fff;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 16px;
+            text-align: center;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+        .btn:hover {
+            transform: scale(1.02);
+            background-color: #179d17;
+            text-decoration: none;
+        }
+        #fixedDiv {
+            position: fixed; /* Mantiene el div en una posición fija */
+            bottom: 20px; /* Distancia desde el borde inferior */
+            right: 20px; /* Distancia desde el borde derecho */
+            width: 90px; /* Ancho del div */
+            height: 90px; /* Alto del div */
+            background-color: #007BFF; /* Color de fondo (puedes cambiarlo) */
+            border-radius: 8px; /* Bordes redondeados (opcional) */
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3); /* Sombra para mejor visibilidad (opcional) */
+            z-index: 1000; /* Asegura que esté sobre otros elementos */
+            display: flex;
+            align-items: center; /* Centra la imagen verticalmente */
+            justify-content: center; /* Centra la imagen horizontalmente */
+        }
+
+        #logoImage {
+            max-width: 100%; /* Ajusta el ancho máximo al tamaño del div */
+            max-height: 100%; /* Ajusta la altura máxima al tamaño del div */
+            border-radius: 8px; /* Opcional: igualar el borde redondeado del div */
+        }
+
+    </style>
+</head>
+<body>
+   
+
+    <div class="container">
+        <div class="sidebar">
+            <a href="profile.php">Perfil de Usuario</a>
+            <a href="trabajo_grado.php">Trabajo de Grado</a>
+            <a href="Informacion_trabajo.html">Descripción</a>
+            <a href="https://sites.google.com/e3t.uis.edu.co/carteradetemas?authuser=0" target=“_blank”>Cartera de proyectos</a>
+            <a href="logout.php" style="background-color: #1ba71b;" >Cerrar sesión</a>
+        </div>
+        <div class="content">
+            <nav>
+                <h2>Detalles del proyecto</h2>
+            </nav>
+            <div class="container-form">
+                <form id="projectForm" action="guardar_proyecto.php" method="post">
+                    <label for="descripcion">Descripción:</label>
+                    <textarea id="descripcion" name="descripcion"></textarea>
+                
+                    <label for="justificacion">Justificación:</label>
+                    <textarea id="justificacion" name="justificacion"></textarea>
+                
+                    <label for="objetivos">Objetivos:</label>
+                    <textarea id="objetivos" name="objetivos"></textarea>
+                
+                    <label for="modalidad">Modalidad:</label>
+                    <textarea id="modalidad" name="modalidad"></textarea>
+                
+                    <input class="btn" type="submit" value="Guardar">
+                </form>
+            </div>
+        </div>
+    </div>
+   
+    <img src="logoEscuela.png" alt="Logo Escuela" style="position: absolute; top: 40px; right: 60px; width: 100px; z-index: 1000;">
+
+    <div id="fixedDiv">
+        <img src="logo_uis.png" alt="Logo UIS" id="logoImage">
+    </div>
+    <!-- Mensaje emergente -->
+    <div id="successMessage" class="alert">Registro exitoso</div>
+    
+    <script>
+        $(document).ready(function() {
+            // Maneja el envío del formulario
+            $('#projectForm').on('submit', function(event) {
+                event.preventDefault(); // Evita que el formulario se envíe de la forma tradicional
+
+                // Envía los datos del formulario usando AJAX
+                $.ajax({
+                    url: $(this).attr('action'),
+                    type: 'POST',
+                    data: $(this).serialize(),
+                    success: function(response) {
+                        // Muestra el mensaje de éxito
+                        showSuccessMessage();
+                    },
+                    error: function(xhr, status, error) {
+                        // Maneja errores, si los hay
+                        console.error('Error:', error);
+                    }
+                });
+            });
+        });
+
+        function showSuccessMessage() {
+            var messageElement = document.getElementById('successMessage');
+            messageElement.classList.add('show');
+            setTimeout(function() {
+                messageElement.classList.remove('show');
+                messageElement.classList.add('hide');
+                setTimeout(function() {
+                    messageElement.classList.remove('hide');
+                    messageElement.classList.remove('show');
+                }, 1500); // Tiempo para que la animación de ocultar termine
+            }, 2000); // Desvanecimiento después de 2 segundos
+        }
+
+            // Función para guardar datos en localStorage
+        function saveFormData() {
+            const descripcion = document.getElementById('descripcion').value;
+            const justificacion = document.getElementById('justificacion').value;
+            const objetivos = document.getElementById('objetivos').value;
+            const modalidad = document.getElementById('modalidad').value;
+
+            localStorage.setItem('descripcion', descripcion);
+            localStorage.setItem('justificacion', justificacion);
+            localStorage.setItem('objetivos', objetivos);
+            localStorage.setItem('modalidad', modalidad);
+        }
+
+        // Función para cargar datos desde localStorage
+        function loadFormData() {
+            const descripcion = localStorage.getItem('descripcion');
+            const justificacion = localStorage.getItem('justificacion');
+            const objetivos = localStorage.getItem('objetivos');
+            const modalidad = localStorage.getItem('modalidad');
+
+            if (descripcion) document.getElementById('descripcion').value = descripcion;
+            if (justificacion) document.getElementById('justificacion').value = justificacion;
+            if (objetivos) document.getElementById('objetivos').value = objetivos;
+            if (modalidad) document.getElementById('modalidad').value = modalidad;
+        }
+
+        // Llamar a loadFormData cuando la página se carga
+        window.onload = function() {
+            loadFormData();
+            var urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.get('success') === '1') {
+                showSuccessMessage();
+                urlParams.delete('success');
+                var newUrl = window.location.pathname + '?' + urlParams.toString();
+                window.history.replaceState({}, '', newUrl);
+            }
+        };
+
+        // Añadir el evento de submit para guardar datos en localStorage
+        document.getElementById('projectForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevenir el comportamiento por defecto del formulario
+            saveFormData();
+            
+            // Aquí podrías enviar el formulario con AJAX si lo deseas, por ahora solo mostramos el mensaje
+            showSuccessMessage();
+        });
+
+    </script>
+</body>
+</html>
+
+
+

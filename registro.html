@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="../ejemplo_base/logo_uis.png" type="image/png"> <!-- Ajusta la ruta y tipo según tu imagen -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>Registro</title>
+    <style>
+        body {
+            background-image: url('http://e3t.uis.edu.co/eisi/images/Grupos/G7/contenidos/imagenes/20191030130119-inicio.png');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-position: center;
+            margin: 0;
+            padding: 0;
+            font-family: 'Montserrat', sans-serif;
+        }
+        .error-message {
+            text-align: center;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: bold;
+            color: red;
+            margin-bottom: 20px;
+        }
+        h2{
+            text-align: center;
+            margin-bottom: 28px;
+        }
+
+        .container {
+            background-color: rgba(255, 255, 255, 0.8);
+            max-width: 450px;
+            margin: 50px auto;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+        }
+        .input-group {
+            margin-bottom: 15px;
+        }
+        .input-group label {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 5px;
+        }
+        .input-group input,
+        .input-group select {
+            width: calc(100% - 20px);
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            box-sizing: border-box;
+        }
+        .input-group input::placeholder,
+        .input-group select {
+            color: #888;
+        }
+        .back-button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: #1ba71b;
+            color: #fff;
+            padding: 10px;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+        .btn{
+            background-color: #1ba71b;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+            width: auto;
+            text-align: center;
+            margin: 0 auto;
+            display: block;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+        .btn:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <a href="index.html" class="back-button"><i class="fas fa-arrow-left"></i></a>
+    <div class="container">
+        <h2>Registro de usuarios</h2>
+        <div class="error-message" style="color: red;"></div>
+        <form action="registros.php" method="post" onsubmit="return validateForm()">
+            <div class="input-group">
+                <label for="nombre">Nombre Completo:</label>
+                <input type="text" id="nombre" name="nombre" placeholder="Ingrese su nombre" required>
+            </div>
+            <div class="input-group">
+                <label for="codigo_estudiante">Código de Estudiante:</label>
+                <input type="text" id="codigo_estudiante" name="codigo_estudiante" placeholder="Ingrese su código" pattern="[0-9]+" required>
+            </div>            
+            <div class="input-group">
+                <label for="carrera">Carrera:</label>
+                <select id="carrera" name="carrera" required>
+                    <option value="" disabled selected>Seleccione su carrera</option>
+                    <option value="Ingeniería Electrónica">Ingeniería Electrónica</option>
+                    <option value="Ingeniería Eléctrica">Ingeniería Eléctrica</option>
+                </select>
+            </div>
+            <div class="input-group">
+                <label for="correo_gmail">Correo Gmail:</label>
+                <input type="email" id="correo_gmail" name="correo_gmail" placeholder="Ingrese su correo Gmail" pattern="[a-zA-Z0-9._%+-]+@gmail\.com" required>
+            </div>
+            <div class="input-group">
+                <label for="confirmar_contraseña">Numero Celular</label>
+                <input type="text" id="Celular" name="Celular" placeholder="Ingrese el número celular" required>
+            </div>
+            <div class="input-group">
+                <label for="semestre">Semestre:</label>
+                <input type="number" id="semestre" name="semestre" placeholder="example: 8" required>
+            </div>
+            <div class="input-group">
+                <label for="matricula">Matricula:</label>
+                <select id="matricula" name="matricula" required>
+                    <option value="" disabled selected>Seleccione su matricula</option>
+                </select>
+            </div>
+            
+            <script>
+                const matriculaSelect = document.getElementById('matricula');
+                const startYear = 2020; // Año de inicio para los semestres
+                const currentYear = new Date().getFullYear();
+                const currentMonth = new Date().getMonth() + 1;
+                const semesterOptions = [];
+            
+                for (let year = startYear; year < currentYear; year++) {
+                    semesterOptions.push(`${year}-1`);
+                    semesterOptions.push(`${year}-2`);
+                }
+            
+                // Añadir los semestres del año actual
+                semesterOptions.push(`${currentYear}-1`);
+                if (currentMonth > 6) {
+                    semesterOptions.push(`${currentYear}-2`);
+                }
+            
+                semesterOptions.forEach(semester => {
+                    const option = document.createElement('option');
+                    option.value = semester;
+                    option.textContent = semester;
+                    matriculaSelect.appendChild(option);
+                });
+            </script>
+            
+            
+            <div class="input-group">
+                <label for="contraseña">Contraseña:</label>
+                <input type="password" id="contraseña" name="contraseña" placeholder="Ingrese su contraseña" required>
+            </div>
+            <div id="password-error" class="error"></div>
+            <button type="submit" class="btn">Registrarse</button>
+        </form>
+    </div>
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const error = urlParams.get('error');
+        if (error === "1") {
+            document.querySelector('.error-message').innerText = "Usuario ya se encuentra registrado";
+        }
+    </script>
+</body>
+</html>
